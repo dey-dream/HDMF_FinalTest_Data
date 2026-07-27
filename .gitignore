@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+.env
+*.p8
+*.pem
+*.pub
+*private_key*
+*public_key*
+*secret*.json
+.aws/

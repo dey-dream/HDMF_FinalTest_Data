@@ -1,0 +1,52 @@
+HDMF ACTIAN TO SQLITE MIGRATION
+DESIGN DECISIONS
+
+1. Binary TRL File Parsing
+
+The migration pipeline reads Actian Ingres trail files as binary data. Each table has a configured fixed record size or stride. Before parsing, the program checks that the file size is divisible by its expected stride to make sure that there are no incomplete records.
+
+The first 56 bytes of every record are treated as the record header. The parser extracts the record marker, source date, transaction sequence number, source username, and CDC operation from their fixed byte positions.
+
+The source column values begin after the header. Each field contains a two-byte little-endian length prefix followed by its value. After reading a field, the next field position is aligned to the next eight-byte boundary. Latin-1 encoding is used when converting the field bytes into text.
+
+The original Actian column names and field order are preserved in the staging, audit, and curated tables.
+
+2. Staging Layer
+
+Every successfully parsed TRL record is first loaded into a staging table. Each staging record contains the original source columns and additional metadata such as the source file, source timestamp, CDC operation, batch ID, raw record ID, and stage sequence.
+
+The _stage_seq column preserves the exact order of the records inside the TRL file. The _is_processed column is initially set to 0 and is changed to 1 after the record has been successfully processed into an audit or curated table.
+
+This allows the pipeline to reprocess records from staging without reading the binary file again.
+
+3. Audit Table Processing
+
+The acctian_lo_stl_purpose.trl file is treated as an audit or reference table. It is loaded directly into audit_lo_stl_purpose without applying SCD Type 2.
+
+The combination of purpose_code and loan_type_code is used as the business key because purpose_code appears under multiple loan types in the provided dataset. An upsert is applied so that the latest record replaces an existing record with the same composite key.
+
+4. SCD Type 2 Processing
+
+The five transaction tables are processed using Slowly Changing Dimension Type 2. Records are processed according to _stage_seq to preserve the original CDC sequence.
+
+An append operation creates the first active version of a record. A repold record is stored temporarily as the before-image of an update. When the corresponding repnew record is encountered, the previous active version is closed and a new version is inserted.
+
+The values in repold and repnew are compared to identify the changed source columns. These column names are saved in changed_columns.
+
+A delete operation closes the current version, sets is_current to 0, and sets is_deleted to 1. No new active version is created after a delete.
+
+Each version contains an SCD key, version number, effective start and end dates, current flag, deleted flag, change type, and changed column list.
+
+5. RISK-01 Handling
+
+Seven TRL files contain zero bytes. The pipeline does not treat these files as ordinary failures. Instead, they are recorded in the migration log with a status of SKIPPED and a risk flag of RISK-01.
+
+The pipeline continues processing the remaining files without crashing.
+
+6. Migration Logging and Validation
+
+The migration_log table stores one entry for every source file. It records the number of parsed, staged, and loaded records, together with insert, update, and delete counts, status, risk flag, and error details.
+
+The validation process checks record-count reconciliation, staging completeness, primary keys, duplicate current versions, SCD version sequences, effective-date ordering, migration-log completeness, and RISK-01 coverage.
+
+The final execution completed successfully with 37 validation checks passed and no failed checks.

@@ -1,0 +1,49 @@
+HDMF MIGRATION VALIDATION REPORT
+==========================================================================================
+Database: /Users/andreabasang/hdmf/HDMF_Final_Submission/hdmf_migration_output.db
+Batch ID: 729ee1de108a4923893da107d37131ac
+Validated at: 2026-07-21T17:47:49.688570+00:00
+==========================================================================================
+[PASS] lo_stl_purpose: record count reconciliation - staged=30, audit=30, log_matches=True
+[PASS] lo_stl_purpose: staging completeness - unprocessed=0
+[PASS] lo_stl_purpose: valid primary keys - invalid_keys=0
+[PASS] lo_stl_purpose: no duplicate business keys - duplicate_keys=0
+[PASS] lo_stl_frontend: record count reconciliation - events=56, expected_versions=39, curated_versions=39, log_matches=True
+[PASS] lo_stl_frontend: staging completeness - unprocessed=0
+[PASS] lo_stl_frontend: valid primary keys - invalid_keys=0
+[PASS] lo_stl_frontend: no duplicate current versions - keys_with_multiple_current_versions=0
+[PASS] lo_stl_frontend: valid version sequence - sequence_errors=0
+[PASS] lo_stl_frontend: effective date ordering - date_order_errors=0
+[PASS] lo_stl_online_application: record count reconciliation - events=28, expected_versions=24, curated_versions=24, log_matches=True
+[PASS] lo_stl_online_application: staging completeness - unprocessed=0
+[PASS] lo_stl_online_application: valid primary keys - invalid_keys=0
+[PASS] lo_stl_online_application: no duplicate current versions - keys_with_multiple_current_versions=0
+[PASS] lo_stl_online_application: valid version sequence - sequence_errors=0
+[PASS] lo_stl_online_application: effective date ordering - date_order_errors=0
+[PASS] lms_noncash_collection: record count reconciliation - events=52, expected_versions=41, curated_versions=41, log_matches=True
+[PASS] lms_noncash_collection: staging completeness - unprocessed=0
+[PASS] lms_noncash_collection: valid primary keys - invalid_keys=0
+[PASS] lms_noncash_collection: no duplicate current versions - keys_with_multiple_current_versions=0
+[PASS] lms_noncash_collection: valid version sequence - sequence_errors=0
+[PASS] lms_noncash_collection: effective date ordering - date_order_errors=0
+[PASS] lms_stl_disbursement_master: record count reconciliation - events=28, expected_versions=24, curated_versions=24, log_matches=True
+[PASS] lms_stl_disbursement_master: staging completeness - unprocessed=0
+[PASS] lms_stl_disbursement_master: valid primary keys - invalid_keys=0
+[PASS] lms_stl_disbursement_master: no duplicate current versions - keys_with_multiple_current_versions=0
+[PASS] lms_stl_disbursement_master: valid version sequence - sequence_errors=0
+[PASS] lms_stl_disbursement_master: effective date ordering - date_order_errors=0
+[PASS] pf_employer_master: record count reconciliation - events=21, expected_versions=18, curated_versions=18, log_matches=True
+[PASS] pf_employer_master: staging completeness - unprocessed=0
+[PASS] pf_employer_master: valid primary keys - invalid_keys=0
+[PASS] pf_employer_master: no duplicate current versions - keys_with_multiple_current_versions=0
+[PASS] pf_employer_master: valid version sequence - sequence_errors=0
+[PASS] pf_employer_master: effective date ordering - date_order_errors=0
+[PASS] migration_log: all source files logged - log_rows=13, missing=[], extra=[]
+[PASS] migration_log: no failed files - failed_files=0
+[PASS] migration_log: RISK-01 coverage - covered=7/7, problems=[]
+==========================================================================================
+VALIDATION SUMMARY
+Total checks: 37
+Passed:       37
+Failed:       0
+Overall:      PASS

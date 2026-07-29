@@ -9,3 +9,34 @@ __pycache__/
 *public_key*
 *secret*.json
 .aws/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+terraform.tfvars
+*.auto.tfvars
+crash.log
+
+# Credentials
+*.p8
+*.pem
+*.pub
+.env
+*private_key*
+*secret*.json
+
+# Terraform local files
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/*.tfplan
+terraform/plan.txt
+terraform/lambda_existing.zip
+terraform/*.bak
+
+# Credentials
+*.p8
+*.pem
+.env

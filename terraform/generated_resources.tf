@@ -1,12 +1,3 @@
-# ============================================================
-# HDMF EXISTING AWS INFRASTRUCTURE
-# File: generated_resources.tf
-# ============================================================
-
-
-# ------------------------------------------------------------
-# AMAZON S3 BUCKET
-# ------------------------------------------------------------
 
 resource "aws_s3_bucket" "hdmf" {
   bucket        = "dey-hdmf"
@@ -19,9 +10,8 @@ resource "aws_s3_bucket" "hdmf" {
 }
 
 
-# ------------------------------------------------------------
+
 # AWS LAMBDA FUNCTION
-# ------------------------------------------------------------
 
 resource "aws_lambda_function" "trl_processor" {
   function_name = "dey-trl"
@@ -54,9 +44,8 @@ resource "aws_lambda_function" "trl_processor" {
 }
 
 
-# ------------------------------------------------------------
+
 # AMAZON S3 TRIGGER FOR LAMBDA
-# ------------------------------------------------------------
 
 resource "aws_s3_bucket_notification" "hdmf_lambda_trigger" {
   bucket      = aws_s3_bucket.hdmf.id
@@ -77,9 +66,8 @@ resource "aws_s3_bucket_notification" "hdmf_lambda_trigger" {
 }
 
 
-# ------------------------------------------------------------
+
 # AWS GLUE CONNECTION TO SNOWFLAKE
-# ------------------------------------------------------------
 
 resource "aws_glue_connection" "snowflake" {
   catalog_id      = "956304645529"
@@ -97,9 +85,7 @@ resource "aws_glue_connection" "snowflake" {
 }
 
 
-# ------------------------------------------------------------
 # AWS GLUE JOB
-# ------------------------------------------------------------
 
 resource "aws_glue_job" "hdmf" {
   name     = "dey-hdmf-glue"

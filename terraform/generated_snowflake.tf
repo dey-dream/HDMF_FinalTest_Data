@@ -1,12 +1,5 @@
-# ============================================================
-# HDMF EXISTING SNOWFLAKE INFRASTRUCTURE
-# File: generated_snowflake.tf
-# ============================================================
 
-
-# ------------------------------------------------------------
 # SNOWFLAKE DATABASE
-# ------------------------------------------------------------
 
 resource "snowflake_database" "hdmf" {
   name = "HDMF_MIGRATION_DB"
@@ -17,10 +10,7 @@ resource "snowflake_database" "hdmf" {
   }
 }
 
-
-# ------------------------------------------------------------
 # SNOWFLAKE WAREHOUSE
-# ------------------------------------------------------------
 
 resource "snowflake_warehouse" "hdmf" {
   name = "HDMF_MIGRATION_WH"
@@ -32,9 +22,7 @@ resource "snowflake_warehouse" "hdmf" {
 }
 
 
-# ------------------------------------------------------------
 # SNOWFLAKE ACCOUNT ROLE
-# ------------------------------------------------------------
 
 resource "snowflake_account_role" "hdmf" {
   name = "HDMF_MIGRATION_ROLE"
@@ -46,9 +34,7 @@ resource "snowflake_account_role" "hdmf" {
 }
 
 
-# ------------------------------------------------------------
 # STAGING SCHEMA
-# ------------------------------------------------------------
 
 resource "snowflake_schema" "staging" {
   database = "HDMF_MIGRATION_DB"
@@ -60,10 +46,7 @@ resource "snowflake_schema" "staging" {
   }
 }
 
-
-# ------------------------------------------------------------
 # CURATED SCHEMA
-# ------------------------------------------------------------
 
 resource "snowflake_schema" "curated" {
   database = "HDMF_MIGRATION_DB"
